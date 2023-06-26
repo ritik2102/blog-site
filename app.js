@@ -91,17 +91,23 @@ app.get("/posts/:postId", function(req, res){
     }
 
   });
-  // posts.forEach(function(post){
-  //   const storedTitle = _.lowerCase(post.title);
-  //
-  //   if (storedTitle === requestedTitle) {
-  //     res.render("post", {
-  //       title: post.title,
-  //       content: post.content
-  //     });
-  //   }
-  // });
+  
 
+});
+
+// the delete route
+app.post("/delete",function(req,res){
+  
+  const postId=req.body.postId;
+  console.log(postId);
+  Post.findByIdAndRemove(postId,function(err){
+    if(err){
+      console.log("Did not work");
+    }
+    if(!err){
+      res.redirect("/");
+    }
+  })
 });
 
 let port = process.env.PORT;
